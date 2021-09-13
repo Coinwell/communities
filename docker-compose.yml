@@ -67,8 +67,8 @@ services:
 
   communities:
     container_name: communities
-    # image: zion-communities
-    build: .
+    image: n2n2/communities:test
+    # build: .
     logging:
       options:
         max-size: '10m'
@@ -111,9 +111,7 @@ services:
       - RDS_USERNAME=$RDS_USERNAME
       - RDS_PASSWORD=$RDS_PASSWORD
       - JWT_KEY=$JWT_KEY
-
       - PRIV_KEY=$PRIV_KEY
-
       - PODCAST_INDEX_KEY=$PODCAST_INDEX_KEY
       - PODCAST_INDEX_SECRET=$PODCAST_INDEX_SECRET
     ulimits:

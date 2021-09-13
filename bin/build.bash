@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-repo="getzion/communities"
+repo="n2n2/communities"
 
 version="test"
 

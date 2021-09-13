@@ -14,3 +14,6 @@ _/
 docker/sphinx
 docker/letsencrypt
 doc/sphinx
+
+# deployment secrets
+secret.yaml

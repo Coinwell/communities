@@ -18,7 +18,8 @@ spec:
       labels:
         app: communities
     spec:
-      volumes:
+      imagePullSecrets:
+        - name: regcred
       containers:
       - name: communities
         image: "{{ .Values.image }}:{{ .Values.tag }}"
@@ -41,5 +42,5 @@ spec:
           periodSeconds: 10
           timeoutSeconds: 5
         envFrom:
-        - configMapRef:
-            name: communities-config
+        - secretRef:
+            name: communities
