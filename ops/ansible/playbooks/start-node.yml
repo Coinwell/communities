@@ -80,15 +80,15 @@
     public_ip: "{{ instance_eip.public_ip }}"
     testnet: "{{ config.testnet }}"
 
-# - name: Add to Route 53
-#   community.aws.route53:
-#     state: present
-#     zone: n2n2.chat
-#     record: "{{ config.instance_name }}"
-#     type: A
-#     ttl: 300
-#     value: "{{ instance_eip.public_ip }}"
-#     wait: yes
+- name: Add to Route 53
+  community.aws.route53:
+    state: present
+    zone: n2n2.chat
+    record: "{{ config.instance_name }}"
+    type: A
+    ttl: 300
+    value: "{{ instance_eip.public_ip }}"
+    wait: yes
 
 - name: Write the new ec2 instance host key to known hosts
   connection: local

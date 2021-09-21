@@ -32,6 +32,7 @@ truncate table tribes;
 
 ```
 docker ps -q | xargs -L 1 docker logs -f
+docker-compose logs -f --tail 100 communities
 ```
 
 ## Private Key (PRIV_KEY)

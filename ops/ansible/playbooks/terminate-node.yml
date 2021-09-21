@@ -1,6 +1,6 @@
 ---
 - name: EC2 Facts
-  ec2_instance_facts:
+  ec2_instance_info:
     region: "{{ aws_region }}"
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
@@ -22,11 +22,11 @@
     aws_access_key: "{{ aws_access_key }}"
     aws_secret_key: "{{ aws_secret_key }}"
 
-- name: Remove host from known_hosts
-  known_hosts:
-    path: ~/.ssh/known_hosts
-    name: "{{ ec2.instances[0].public_ip_address }}"
-    state: "absent"
+# - name: Remove host from known_hosts
+#   known_hosts:
+#     path: ~/.ssh/known_hosts
+#     name: "{{ config.instance_name }}.{{ config.domain }}"
+#     state: "absent"
 
 - name: Remove host from known_hosts
   known_hosts:
@@ -37,8 +37,8 @@
 - name: Retrieve the Records First
   route53:
     state: get
-    zone: getzion.com
-    record: "{{ config.instance_name }}"
+    zone: "{{ config.domain }}"
+    record: "{{ config.instance_name }}.{{ config.domain }}"
     type: A
   register: rec
 
@@ -48,11 +48,11 @@
 - name: Route 53 Delete Records
   route53:
     state: absent
-    zone: getzion.com
-    record: "{{ config.instance_name }}"
-    type: "{{ rec.set.Type }}"
-    ttl: "{{ rec.set.TTL }}"
-    value: "{{ rec.set.ResourceRecords[0].Value }}"
+    zone: "{{ config.domain }}"
+    record: "{{ config.instance_name }}.{{ config.domain }}"
+    type: "{{ rec.set.type }}"
+    ttl: "{{ rec.set.ttl }}"
+    value: "{{ rec.set.value }}"
     wait: yes
   register: result
 
