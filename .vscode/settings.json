@@ -1,0 +1,13 @@
+{
+  "editor.formatOnSave": true,
+  "prettier.singleQuote": true,
+  "prettier.arrowParens": "avoid",
+  "prettier.trailingComma": "none",
+  "prettier.jsxSingleQuote": true
+  //   //   "prettier.semi": false,
+  //   "prettier.printWidth": 100,
+  //   "javascript.preferences.quoteStyle": "single",
+  //   "typescript.preferences.quoteStyle": "single",
+  //   "prettier.quoteProps": "preserve",
+  //   "typescript.tsdk": "node_modules/typescript/lib"
+}

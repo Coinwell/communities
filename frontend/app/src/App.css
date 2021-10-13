@@ -1,6 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,400i,700,700i');
 @import url('https://rsms.me/inter/inter-ui.css');
-html{
+html {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,9 +14,9 @@ html{
 }
 body {
   margin: 0;
-  font-family: "Inter UI", Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter UI', Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -20,27 +24,73 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-button:focus{
-  outline:none !important;
+
+img {
+  border-style: none;
+}
+/* start Mo styles */
+
+.header {
+  background-color: #fff;
+  padding-top: 12px;
+  padding-bottom: 16px;
+  display: block;
+  max-height: 105px;
+  height: auto;
+  min-height: auto;
+  border: 0;
+}
+.header .logo {
+  width: 100px;
+  height: 32px;
+}
+
+.header .search-box {
+  width: 260px;
+  height: 35px;
+  box-shadow: none;
+  border-radius: 5px;
+  color: #587393;
+  margin-right: 10px;
+  /* background-image: url(/static/search-24px.svg) !important; */
+  background-repeat: no-repeat;
+  background-position: 10px;
+  background-size: 20px 20px;
+}
+
+.header .search-box:focus {
+}
+
+.euiFieldSearch.euiFieldSearch::placeholder {
+  color: #3b4755;
+}
+.euiFieldSearch.euiFieldSearch:focus {
+  /* background-color: #101821; */
+}
+
+/* end Mo styles */
+
+button:focus {
+  outline: none !important;
 }
 
 .app {
-  position:fixed;
-  top:0;right:0;bottom:0;left:0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 }
 
-.euiCheckableCard__children{
-  width:100%;
-  padding:0 !important;
+.euiCheckableCard__children {
+  width: 100%;
+  padding: 0 !important;
 }
-.euiCheckableCard__control{
-  display:none !important;
+.euiCheckableCard__control {
+  display: none !important;
 }
-.euiCheckableCard__row:first-child{
+.euiCheckableCard__row:first-child {
   display: none;
-}
-.container {
-  max-width: 760px !important;
 }
 .euiPopover {
   margin-top: -5px;
@@ -50,40 +100,12 @@ button:focus{
   top: 50%;
 }
 
-#header {
-  padding-top: 12px;
-  padding-bottom: 16px;
-  display: block;
-  max-height: 105px;
-  height: auto;
-  min-height: auto;
-  background: #161e29;
-  border: 0;
-}
-
-#logo {
-  width: 200px;
-  height: 40px;
-}
-#search-input {
-  width: 260px;
-  height: 35px;
-  box-shadow: none;
-  border-radius: 5px;
-  color: #587393;
-  background: #101821;
-  margin-right: 10px;
-  background-image: url(/static/search-24px.svg) !important;
-  background-repeat: no-repeat;
-  background-position: 10px;
-  background-size: 20px 20px;
-}
-#header .euiButton{
+#header .euiButton {
   min-width: 80px;
   width: 95px;
   height: 35px;
-  border: 1px solid #5D8FDD;
-  color: #5D8FDD;
+  border: 1px solid #5d8fdd;
+  color: #5d8fdd;
 }
 #header .euiButton__text {
   font-size: 10px;
@@ -93,11 +115,17 @@ button:focus{
   width: 11px;
 }
 #header .euiFieldSearch::placeholder {
-  color: #3B4755;
+  color: #3b4755;
   font-size: 13px;
 }
 #header .euiFieldSearch:focus {
-  background-image: linear-gradient(to top, #5D8FDD, #5D8FDD 2px, transparent 2px, transparent 100%);
+  background-image: linear-gradient(
+    to top,
+    #5d8fdd,
+    #5d8fdd 2px,
+    transparent 2px,
+    transparent 100%
+  );
 }
 #header-right {
   align-items: center;
@@ -107,23 +135,14 @@ button:focus{
   border: 1px solid #161e29;
 }
 .euiPanel.euiPanel .euiSelectableListItem:not(:last-of-type) {
-    border-bottom: 1px solid transparent;
+  border-bottom: 1px solid transparent;
 }
-.euiFieldSearch.euiFieldSearch {
-  background-color: #101821;
-  font-size: 12px;
-}
-.euiFieldSearch.euiFieldSearch::placeholder {
-  color: #3B4755;
-}
-.euiFieldSearch.euiFieldSearch:focus {
-  background-color: #101821;
-}
+
 #header-right .euiFormControlLayoutIcons {
   display: none;
 }
 .popover-tags .euiFieldSearch.euiFieldSearch {
-  background-image: url(/static/search-24px.svg) !important;
+  /* background-image: url(/static/search-24px.svg) !important; */
   background-repeat: no-repeat;
   background-position: 10px;
   background-size: 20px 20px;
@@ -156,7 +175,7 @@ fieldset.container {
   position: relative;
 }
 #main .euiCheckableCard h5 {
-  color: #6B7A8D;
+  color: #6b7a8d;
   font-size: 12px;
   margin-bottom: 0;
 }
@@ -175,7 +194,7 @@ fieldset.container {
   width: 90px;
   height: 90px;
   border-radius: 5px;
-  background: url(/static/placeholder.svg);
+  /* background: url(/static/placeholder.svg); */
   background-repeat: no-repeat;
   background-size: 40px 33px;
   background-position: center center;
@@ -187,15 +206,16 @@ fieldset.container {
   margin-bottom: 20px;
 }
 .qr-left {
-  color: #6B7A8D;
+  color: #6b7a8d;
   font-size: 12px;
   position: relative;
 }
 .qr-left .lighter-color {
   color: #fff;
 }
-.qr-left .disabled , .qr-left .disabled .lighter-color{
-  color: #3B4755;
+.qr-left .disabled,
+.qr-left .disabled .lighter-color {
+  color: #3b4755;
 }
 .qr-left .info {
   display: block;
@@ -223,7 +243,7 @@ fieldset.container {
   font-size: 12px;
 }
 .section-separator {
-  border: 1px solid #151E27;
+  border: 1px solid #151e27;
   margin-top: 20px;
   margin-bottom: 20px;
 }
@@ -235,7 +255,7 @@ fieldset.container {
   width: 100px;
   height: 40px;
   margin: 0 auto;
-  background: #151E27;
+  background: #151e27;
   margin-bottom: -24px;
   margin-top: 20px;
   border-top-left-radius: 10px;
@@ -254,7 +274,7 @@ fieldset.container {
   overflow: hidden;
   position: relative;
 }
-.euiCheckableCard-isChecked .tags-wrapper.tags-wrapper{
+.euiCheckableCard-isChecked .tags-wrapper.tags-wrapper {
   overflow: visible;
   height: auto;
 }
@@ -266,7 +286,7 @@ fieldset.container {
   top: -4px;
   right: 0px;
   font-size: 10px;
-  color: #6B7A8D;
+  color: #6b7a8d;
   background: #1a2430;
   padding: 10px;
 }
@@ -335,7 +355,7 @@ textarea.qr-string {
     max-width: 378px;
     height: 100px;
   }
-  #main .euiCheckableCard-isChecked  {
+  #main .euiCheckableCard-isChecked {
     height: auto;
   }
 }

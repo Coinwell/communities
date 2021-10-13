@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import '@elastic/eui/dist/eui_theme_light.css';
+// import 'bootstrap/dist/css/bootstrap.css';
+
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import '@elastic/eui/dist/eui_theme_dark.css';
-import 'bootstrap/dist/css/bootstrap.css';
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

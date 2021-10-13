@@ -1,19 +1,19 @@
-import React from 'react'
-import { uiStore } from './ui'
-import { mainStore } from './main'
-import { create } from 'mobx-persist'
+import React from 'react';
+import { uiStore } from './ui';
+import { mainStore } from './main';
+import { create } from 'mobx-persist';
 
-const hydrate = create({storage: localStorage})
+const hydrate = create({ storage: localStorage });
 
 Promise.all([
   // hydrate('main', mainStore),
-]).then(()=> {
-  uiStore.setReady(true)
-})
+]).then(() => {
+  uiStore.setReady(true);
+});
 
 const ctx = React.createContext({
   ui: uiStore,
-  main: mainStore,
-})
+  main: mainStore
+});
 
-export const useStores = () => React.useContext(ctx)
+export const useStores = () => React.useContext(ctx);

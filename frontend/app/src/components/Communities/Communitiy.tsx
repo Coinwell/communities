@@ -1,17 +1,18 @@
-import React, { useRef, useState } from "react";
-import { QRCode } from "react-qr-svg";
-import styled from "styled-components";
-import { EuiCheckableCard } from "@elastic/eui";
-import Tag from "./tag";
-import moment from "moment";
+import React, { useRef, useState } from 'react';
+import { QRCode } from 'react-qr-svg';
+import styled from 'styled-components';
+import { EuiCheckableCard } from '@elastic/eui';
+import moment from 'moment';
 
-const DEFAULT_DOMAIN_BUNDLE_URL = "zion.chat";
+import Tag from './Tag';
+
+const DEFAULT_DOMAIN_BUNDLE_URL = 'zion.chat';
 
 function makeQR(uuid: string) {
-  return `${DEFAULT_DOMAIN_BUNDLE_URL }://?action=tribe&uuid=${uuid}&host=${window.location.hostname}`;
+  return `${DEFAULT_DOMAIN_BUNDLE_URL}://?action=tribe&uuid=${uuid}&host=${window.location.hostname}`;
 }
 
-export default function Tribe({
+const Community = ({
   uuid,
   name,
   img,
@@ -24,8 +25,8 @@ export default function Tribe({
   price_to_join,
   price_per_message,
   member_count,
-  last_active,
-}: any) {
+  last_active
+}: any) => {
   const showTags = tags && tags.length && tags.length > 0 ? true : false;
   const textareaRef = useRef(null);
   const qrString = makeQR(uuid);
@@ -33,20 +34,20 @@ export default function Tribe({
 
   const lastActiveM = last_active
     ? moment(last_active * 1000)
-    : moment().subtract(1, "months");
-  const lastActive = lastActiveM.format("MMM D HH:mm");
+    : moment().subtract(1, 'months');
+  const lastActive = lastActiveM.format('MMM D HH:mm');
 
   function copyString(e: any, textareaRef: any) {
     e.stopPropagation();
     textareaRef.current.select();
-    document.execCommand("copy");
+    document.execCommand('copy');
     setCopied(true);
     setTimeout(() => setCopied(false), 2700);
   }
 
   return (
     <EuiCheckableCard
-      className="col-md-6 col-lg-6 ml-2 mb-2"
+      className='col-md-6 col-lg-6 ml-2 mb-2'
       id={uuid}
       label={name}
       name={name}
@@ -55,27 +56,27 @@ export default function Tribe({
       onChange={() => select(uuid)}
     >
       <Content
-        onClick={() => select(selected ? "" : uuid)}
+        onClick={() => select(selected ? '' : uuid)}
         style={{
-          height: selected ? "auto" : 100,
+          height: selected ? 'auto' : 100
         }}
         selected={selected}
       >
         <Left>
-          <Row className="item-cont">
-            <div className="placeholder-img-tribe"></div>
+          <Row className='item-cont'>
+            <div className='placeholder-img-tribe'></div>
             <Img src={img} />
             <Left
-              style={{ padding: "0 0 0 20px", maxWidth: "calc(100% - 100px)" }}
+              style={{ padding: '0 0 0 20px', maxWidth: 'calc(100% - 100px)' }}
             >
               <Row
                 style={
                   selected
-                    ? { flexDirection: "column", alignItems: "flex-start" }
+                    ? { flexDirection: 'column', alignItems: 'flex-start' }
                     : {}
                 }
               >
-                <Title className="tribe-title">{name}</Title>
+                <Title className='tribe-title'>{name}</Title>
               </Row>
               <Description
                 oneLine={selected ? false : true}
@@ -85,111 +86,111 @@ export default function Tribe({
               </Description>
 
               {showTags && (
-                <Tokens className="tags-wrapper">
+                <Tokens className='tags-wrapper'>
                   {tags.map((t: string) => (
                     <Tag type={t} key={t} />
                   ))}
                   {tags.length > 3 && (
-                    <span className="more-tags-available">more...</span>
+                    <span className='more-tags-available'>more...</span>
                   )}
                 </Tokens>
               )}
             </Left>
           </Row>
           <div
-            className="expand-part"
+            className='expand-part'
             style={selected ? { opacity: 1 } : { opacity: 0 }}
           >
-            <div className="section-separator"></div>
-            <div className="row info-section">
-              <div className="col-4 col-sm-4 col-md-4 col-lg-4">
-                <div className="uppercase">Last Activity:</div>
-                <div className="lighter-color">{lastActive}</div>
+            <div className='section-separator'></div>
+            <div className='row info-section'>
+              <div className='col-4 col-sm-4 col-md-4 col-lg-4'>
+                <div className='uppercase'>Last Activity:</div>
+                <div className='lighter-color'>{lastActive}</div>
               </div>
-              <div className="col-4 col-sm-4 col-md-4 col-lg-4 text-center">
+              <div className='col-4 col-sm-4 col-md-4 col-lg-4 text-center'>
                 {(member_count ? true : false) && (
                   <>
-                    <div className="uppercase">Members:</div>
-                    <div className="lighter-color">{member_count}</div>
+                    <div className='uppercase'>Members:</div>
+                    <div className='lighter-color'>{member_count}</div>
                   </>
                 )}
               </div>
-              <div className="col-4 col-sm-4 col-md-4 col-lg-4 text-right">
-                <div className="uppercase">Admin:</div>
-                <div className="lighter-color">{owner_alias}</div>
+              <div className='col-4 col-sm-4 col-md-4 col-lg-4 text-right'>
+                <div className='uppercase'>Admin:</div>
+                <div className='lighter-color'>{owner_alias}</div>
               </div>
               {/* <div className="col-4 col-sm-4 col-md-4 col-lg-4 text-right">
               <div className="uppercase">Created on:</div>
               <div className="lighter-color">{moment(created).format('MMM D')}</div>
             </div> */}
             </div>
-            <div className="section-separator"></div>
+            <div className='section-separator'></div>
 
-            <div className="row">
-              <div className="col-4 col-sm-4 col-md-4 col-lg-4 qr-left">
-                <div className="text-right">
+            <div className='row'>
+              <div className='col-4 col-sm-4 col-md-4 col-lg-4 qr-left'>
+                <div className='text-right'>
                   <img
                     style={{ width: 100 }}
-                    src="static/scan_notification.svg"
-                    alt=""
+                    src='static/scan_notification.svg'
+                    alt=''
                   />
                 </div>
-                <div className="text-right info">
+                <div className='text-right info'>
                   <div>Price to join</div>
-                  <div className="lighter-color">{price_to_join || 0}</div>
+                  <div className='lighter-color'>{price_to_join || 0}</div>
                 </div>
-                <div className="section-separator"></div>
-                <div className="text-right info">
+                <div className='section-separator'></div>
+                <div className='text-right info'>
                   <div>Price per msg</div>
-                  <div className="lighter-color">{price_per_message || 0}</div>
+                  <div className='lighter-color'>{price_per_message || 0}</div>
                 </div>
-                <div className="section-separator"></div>
-                <a href={qrString} className="btn join-btn">
+                <div className='section-separator'></div>
+                <a href={qrString} className='btn join-btn'>
                   <img
                     style={{ width: 13, height: 13, marginRight: 8 }}
-                    src="static/launch-24px.svg"
-                    alt=""
+                    src='static/launch-24px.svg'
+                    alt=''
                   />
                   Join
                 </a>
               </div>
-              <div className="col-8 col-sm-8 col-md-8 col-lg-8">
+              <div className='col-8 col-sm-8 col-md-8 col-lg-8'>
                 {selected && (
-                  <QRWrap className="qr-wrap float-r">
+                  <QRWrap className='qr-wrap float-r'>
                     <QRCode
-                      bgColor={selected ? "#FFFFFF" : "#666"}
-                      fgColor="#000000"
-                      level="Q"
+                      bgColor={selected ? '#FFFFFF' : '#666'}
+                      fgColor='#000000'
+                      level='Q'
                       style={{ width: 209 }}
                       value={qrString}
                     />
                   </QRWrap>
                 )}
-                <div className="below-qr">
+                <div className='below-qr'>
                   <textarea
-                    className="qr-string"
+                    className='qr-string'
                     ref={textareaRef}
                     defaultValue={qrString}
                   />
                   <button
-                    className="copy-btn"
-                    onClick={(e) => copyString(e, textareaRef)}
+                    className='copy-btn'
+                    onClick={e => copyString(e, textareaRef)}
                   >
-                    {copied ? "Copied!" : "Copy"}
+                    {copied ? 'Copied!' : 'Copy'}
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="colapse-button">
-              <img src="static/keyboard_arrow_up-black-18dp.svg" alt="" />
+            <div className='colapse-button'>
+              <img src='static/keyboard_arrow_up-black-18dp.svg' alt='' />
             </div>
           </div>
         </Left>
       </Content>
     </EuiCheckableCard>
   );
-}
+};
 interface ContentProps {
   selected: boolean;
 }
@@ -204,7 +205,7 @@ const Content = styled.div<ContentProps>`
   &:hover h3 {
     color: white;
   }
-  ${(p) =>
+  ${p =>
     p.selected
       ? `
     & h5{
@@ -250,7 +251,7 @@ interface DescriptionProps {
 const Description = styled.h5<DescriptionProps>`
   font-weight: normal;
   line-height: 20px;
-  ${(p) =>
+  ${p =>
     p.oneLine &&
     `
     white-space: nowrap;
@@ -262,7 +263,7 @@ interface ImageProps {
   readonly src: string;
 }
 const Img = styled.div<ImageProps>`
-  background-image: url("${(p) => p.src}");
+  background-image: url('${p => p.src}');
   background-position: center;
   background-size: cover;
   height: 90px;
@@ -274,3 +275,5 @@ const Tokens = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export default Community;
