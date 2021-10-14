@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: secure-communities-dashboard-cert
+spec:
+  commonName: web-c.n2n2.chat
+  secretName: secure-communities-dashboard-cert
+  dnsNames:
+    - web-c.n2n2.chat
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: secure-communities-mqtt-cert
+spec:
+  commonName: c.n2n2.chat
+  secretName: secure-communities-mqtt-cert
+  dnsNames:
+    - c.n2n2.chat
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer

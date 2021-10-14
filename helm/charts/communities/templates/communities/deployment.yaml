@@ -32,15 +32,14 @@ spec:
         volumeMounts:
         ports:
         - name: http
-          containerPort: 3000
+          containerPort: 5000
           protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /
-            port: http
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          timeoutSeconds: 5
+        - name: mqtt
+          containerPort: 1883
+          protocol: TCP
+        - name: mqtts
+          containerPort: 8883
+          protocol: TCP
         envFrom:
         - secretRef:
             name: communities

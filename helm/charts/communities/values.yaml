@@ -1,0 +1,8 @@
+
+ingress:
+  domain: c.n2n2.chat
+  webdomain: web-c.n2n2.chat
+image: n2n2/communities
+tag: test
+
+replicas: 1

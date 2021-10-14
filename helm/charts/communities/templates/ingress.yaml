@@ -1,0 +1,104 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: https-only
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: secure-communities-dashboard-ingress-https
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`web-c.n2n2.chat`)
+      kind: Rule
+      services:
+        - name: communities
+          port: 5000
+  tls:
+    secretName: secure-communities-dashboard-cert
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: secure-communities-dashboard-ingress-http
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`web-c.n2n2.chat`)
+      middlewares:
+        - name: https-only
+      kind: Rule
+      services:
+        - name: communities
+          port: 5000
+---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: secure-communities-mqtt-ingress-https
+# spec:
+#   entryPoints:
+#     - mqtts
+#   routes:
+#     - match: Host(`c.n2n2.chat`)
+#       kind: Rule
+#       services:
+#         - name: communities
+#           port: 1883
+#   tls:
+#     secretName: secure-communities-mqtt-cert
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: secure-communities-mqtt-ingress-http
+# spec:
+#   entryPoints:
+#     - mqtt
+#   routes:
+#     - match: Host(`c.n2n2.chat`)
+#       middlewares:
+#         - name: https-only
+#       kind: Rule
+#       services:
+#         - name: communities
+#           port: 1883
+# ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: secure-communities-mqtt
+spec:
+  entryPoints:
+  - mqttsecure
+  routes:
+  - match: HostSNI(`c.n2n2.chat`)
+    services:
+    - name: communities
+      port: 1883
+  tls:
+    secretName: secure-communities-mqtt-cert
+    passthrough: true
+    options:
+      name: default
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: TLSOption
+metadata:
+  name: default
+spec:
+  cipherSuites:
+  - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+  - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+  - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+  - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+  - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+  minVersion: VersionTLS13
+  sniStrict: true
