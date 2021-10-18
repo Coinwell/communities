@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
 import { useObserver } from 'mobx-react-lite';
-import { EuiFormFieldset, EuiLoadingSpinner } from '@elastic/eui';
 import Fuse from 'fuse.js';
 
 import { useStores } from '../../store';
+import Loader from '../Loader';
 import Communitiy from './Communitiy';
+import Header from './Header';
 
 const fuseOptions = {
   keys: ['name', 'description'],
@@ -21,10 +21,8 @@ const fuseOptions = {
 
 const Communities = () => {
   const { main, ui } = useStores();
-  const [selected, setSelected] = useState('');
-  return useObserver(() => {
-    const loading = main.tribes.length === 0;
 
+  return useObserver(() => {
     const tagsFilter = ui.tags
       .filter((t: any) => t.checked === 'on')
       .map((t: any) => t.label);
@@ -49,46 +47,22 @@ const Communities = () => {
     }
 
     return (
-      <Body id='main'>
-        <Column className='main-wrap'>
-          {loading && <EuiLoadingSpinner size='xl' />}
-          {!loading && (
-            <EuiFormFieldset style={{ width: '100%' }} className='container'>
-              <div className='row'>
-                {theTribes.map(t => (
-                  <Communitiy
-                    {...t}
-                    key={t.uuid}
-                    selected={selected === t.uuid}
-                    select={setSelected}
-                  />
-                ))}
-              </div>
-            </EuiFormFieldset>
-          )}
-        </Column>
-      </Body>
+      <>
+        <Header />
+        {theTribes.length > 0 ? (
+          <div className='w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6'>
+            {theTribes.map(t => (
+              <Communitiy {...t} key={t.uuid} />
+            ))}
+          </div>
+        ) : (
+          <p className='text-md text-gray-500 font-semibold text-center'>
+            Modify search and tags filter to find more communities.
+          </p>
+        )}
+      </>
     );
   });
 };
-
-const Body = styled.div`
-  flex: 1;
-  height: calc(100vh - 50px);
-  padding-bottom: 80px;
-  width: 100%;
-  overflow: scroll;
-  background: #272c4b;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 900px;
-  width: 100%;
-`;
 
 export default Communities;
