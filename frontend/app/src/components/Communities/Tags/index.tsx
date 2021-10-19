@@ -1,6 +1,6 @@
 import { ReactComponent as btc } from './svg/btc.svg';
 import { ReactComponent as lightning } from './svg/lightning.svg';
-import { ReactComponent as sphinx } from './svg/sphinx.svg';
+// import { ReactComponent as sphinx } from './svg/sphinx.svg';
 import { ReactComponent as crypto } from './svg/crypto.svg';
 import { ReactComponent as music } from './svg/music.svg';
 import { ReactComponent as movies } from './svg/movies.svg';

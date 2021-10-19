@@ -81,42 +81,64 @@ body {
   top: 6px;
 }
 
-.flip-card {
-  background-color: transparent;
-  width: 600px;
+.card-container {
+  width: 100%;
   min-height: 590px;
-  perspective: 1000px;
-}
-
-.flip-card-inner {
   position: relative;
+  perspective: 600px;
+  -webkit-perspective: 600px;
+  -o-perspective: 600px;
+  -moz-perspective: 600px;
+}
+
+.card {
   width: 100%;
   height: 100%;
-  text-align: center;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-}
-
-.flip-card.active .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transition: all 0.6s ease-in-out;
+  -webkit-transition: all 0.6s ease-in-out;
+  -o-transition: all 0.6s ease-in-out;
+  -moz-transition: all 0.6s ease-in-out;
 }
 
-.flip-card-back {
+.card.active {
+  transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+}
+
+.card .front {
+  z-index: 10;
+}
+
+.card.active .front {
+  z-index: 1;
+}
+
+.card .side {
+  backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  border-radius: 6px;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  width: 100%;
+}
+
+.card .back {
   transform: rotateY(180deg);
 }
 
-.flip-card .close-btn:hover {
-  background-color: #cccccc57;
+.card.active .back {
+  z-index: 10;
+  background-color: #fff;
 }
 
 .loader {
