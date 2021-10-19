@@ -1,33 +1,33 @@
-import { observable, action } from 'mobx'
-import tags from '../components/tags'
+import { observable, action } from 'mobx';
+import tags from '../components/Communities/tags';
 
-const tagLabels = Object.keys(tags)
-const initialTags = tagLabels.map(label=>{
-  return <EuiSelectableOption>{label}
-})
+const tagLabels = Object.keys(tags);
+const initialTags = tagLabels.map(label => {
+  return <SelectableOption>{ label };
+});
 
-export type EuiSelectableOptionCheckedType = 'on' | 'off' | undefined;
+export type SelectableOptionCheckedType = 'on' | 'off' | undefined;
 
-export interface EuiSelectableOption {
+export interface SelectableOption {
   label: string;
-  checked?: EuiSelectableOptionCheckedType;
+  checked?: SelectableOptionCheckedType;
 }
 
 class UiStore {
-  @observable ready: boolean = false
-  @action setReady(ready:boolean){
-    this.ready = ready
+  @observable ready: boolean = false;
+  @action setReady(ready: boolean) {
+    this.ready = ready;
   }
 
-  @observable tags: EuiSelectableOption[] = initialTags
-  @action setTags(t:EuiSelectableOption[]){
-    this.tags = t
+  @observable tags: SelectableOption[] = initialTags;
+  @action setTags(t: SelectableOption[]) {
+    this.tags = t;
   }
 
-  @observable searchText: string = ''
-  @action setSearchText(s:string){
-    this.searchText = s
+  @observable searchText: string = '';
+  @action setSearchText(s: string) {
+    this.searchText = s;
   }
 }
 
-export const uiStore = new UiStore()
+export const uiStore = new UiStore();
