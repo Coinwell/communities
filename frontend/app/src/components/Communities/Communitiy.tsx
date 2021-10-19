@@ -1,10 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useState, memo } from 'react';
 import { QRCode } from 'react-qr-svg';
-
-import { QrcodeIcon, ChevronDownIcon, XIcon } from '@heroicons/react/outline';
+import { QrcodeIcon, XIcon } from '@heroicons/react/outline';
 import moment from 'moment';
-
-import Tag from './Tag';
 
 const DEFAULT_DOMAIN_BUNDLE_URL = 'zion.chat';
 
@@ -98,13 +95,13 @@ const Community = ({
 
                   {showTags && (
                     <div
-                      className='flex items-center flex-wrap'
-                      style={{ marginTop: 0 }}
+                      className='inline-flex items-center flex-wrap relative overflow-hidden'
+                      style={{ marginTop: 0, height: 32 }}
                     >
                       {tags.map((t: string) => (
                         <span
                           key={t}
-                          className='text-sm rounded-md bg-gray-800 py-1 px-2 mr-1 mb-1'
+                          className='text-sm rounded-md bg-gray-800 py-1 px-2 mr-1 mb-1 line-clamp-1'
                         >
                           {t}
                         </span>
@@ -202,12 +199,6 @@ const Community = ({
                 </div>
               </div>
             </div>
-            {/* <img
-              className='absolute inset-0 transform w-full -translate-y-4'
-              src={img}
-              alt='community avatar'
-              style={{ filter: 'grayscale(0)' }}
-            /> */}
           </div>
         </div>
       </div>
@@ -215,4 +206,4 @@ const Community = ({
   );
 };
 
-export default Community;
+export default memo(Community);

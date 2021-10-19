@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useStores } from '../../store';
 
 const Search = () => {
   const { ui } = useStores();
+  const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      ui.setSearchText(search);
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [search, ui]);
 
   return (
     <>
@@ -12,8 +21,8 @@ const Search = () => {
           type='text'
           className='border border-gray-200 bg-white rounded-sm text-md w-full h-10 pr-16 pl-5 rounded z-0 focus:outline-none'
           placeholder='Search Zion communities'
-          value={ui.searchText}
-          onChange={e => ui.setSearchText(e.target.value)}
+          value={search}
+          onChange={e => setSearch(e.target.value)}
         />
         <div className='absolute top-3 right-4'>
           <svg

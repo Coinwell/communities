@@ -1,8 +1,10 @@
 import { observable, action } from 'mobx';
+import { persist } from 'mobx-persist';
 
 import api from '../api';
 
 export class MainStore {
+  @persist('list')
   @observable
   tribes: Tribe[] = [];
 
@@ -15,6 +17,7 @@ export class MainStore {
       return b.last_active - a.last_active;
     });
     this.tribes = ts;
+    return ts;
   }
 }
 

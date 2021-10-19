@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { observable, action } from 'mobx';
-import tags from '../components/Communities/tags';
+
+import tags from '../components/Communities/Tags';
 
 const tagLabels = Object.keys(tags);
 const initialTags = tagLabels.map(label => {
@@ -14,7 +16,7 @@ export interface SelectableOption {
 }
 
 class UiStore {
-  @observable ready: boolean = false;
+  @observable ready: boolean = true;
   @action setReady(ready: boolean) {
     this.ready = ready;
   }
