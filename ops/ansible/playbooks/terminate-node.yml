@@ -25,20 +25,14 @@
 # - name: Remove host from known_hosts
 #   known_hosts:
 #     path: ~/.ssh/known_hosts
-#     name: "{{ config.instance_name }}.{{ config.domain }}"
+#     name: "{{ ec2.instances[0].public_dns_name }}"
 #     state: "absent"
-
-- name: Remove host from known_hosts
-  known_hosts:
-    path: ~/.ssh/known_hosts
-    name: "{{ ec2.instances[0].public_dns_name }}"
-    state: "absent"
 
 - name: Retrieve the Records First
   route53:
     state: get
     zone: "{{ config.domain }}"
-    record: "{{ config.instance_name }}.{{ config.domain }}"
+    record: "{{ config.instance_name }}"
     type: A
   register: rec
 
@@ -49,10 +43,10 @@
   route53:
     state: absent
     zone: "{{ config.domain }}"
-    record: "{{ config.instance_name }}.{{ config.domain }}"
-    type: "{{ rec.set.type }}"
-    ttl: "{{ rec.set.ttl }}"
-    value: "{{ rec.set.value }}"
+    record: "{{ config.instance_name }}"
+    type: "{{ rec.set.Type }}"
+    ttl: "{{ rec.set.TTL }}"
+    value: "{{ rec.set.ResourceRecords[0].Value }}"
     wait: yes
   register: result
 
