@@ -52,8 +52,6 @@ const TagListbox = () => {
     setIsOpen(true);
   }
 
-  // const selectedTags = ui.tags.filter(t => t.checked === 'on');
-
   return (
     <div className='flex items-center justify-center tag-selector'>
       <div className='w-full'>

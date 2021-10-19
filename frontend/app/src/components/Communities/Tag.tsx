@@ -1,6 +1,6 @@
 import React from 'react';
 
-import tags from './tags';
+import tags from './Tags';
 
 const Tag = (props: any) => {
   const { type } = props;

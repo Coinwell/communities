@@ -1,26 +1,18 @@
-import React, { useEffect } from 'react';
-import { useObserver } from 'mobx-react-lite';
+import React from 'react';
 
 import './App.css';
-import { useStores } from './store';
 import Header from './components/Header/index';
-import Home from './components/Home';
+import Communities from './components/Communities';
 
 const App = () => {
-  const { main } = useStores();
-
-  useEffect(() => {
-    main.getTribes();
-  }, []);
-
-  return useObserver(() => (
+  return (
     <div className='app'>
       <Header />
       <main className='pt-20'>
-        <Home />
+        <Communities />
       </main>
     </div>
-  ));
+  );
 };
 
 export default App;
