@@ -1,6 +1,6 @@
 # zion-communities
 
-Decentralized message broker for public groups in ZION. Anyone can run a ZION-Community server, to route group messages.
+Forked code from Sphinx Chat - Decentralized message broker for public groups in ZION. Anyone can run a ZION-Community server, to route group messages.
 
 ZION-Community clients can be ZION-relay nodes. 
 
