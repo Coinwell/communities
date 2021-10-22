@@ -11,10 +11,11 @@ export class MainStore {
   @action async getTribes() {
     const ts = await api.get('tribes');
     ts.sort((a: Tribe, b: Tribe) => {
-      if (b.last_active === a.last_active) {
-        return b.member_count - a.member_count;
-      }
-      return b.last_active - a.last_active;
+      return b.member_count - a.member_count;
+      // if (b.last_active === a.last_active) {
+
+      // }
+      // return b.last_active - a.last_active;
     });
     this.tribes = ts;
     return ts;

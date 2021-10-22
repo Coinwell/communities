@@ -32,10 +32,18 @@ const Community = ({
     : moment().subtract(1, 'months');
   const lastActive = lastActiveM.format('MMM D HH:mm');
 
-  function copyString(e: any) {
+  function copyString(e: any, qrString: any) {
     e.stopPropagation();
-    document.execCommand('copy');
-    setCopied(true);
+
+    navigator.clipboard.writeText(qrString).then(
+      () => {
+        setCopied(true);
+      },
+      err => {
+        console.error('Async: Could not copy text: ', err);
+      }
+    );
+
     setTimeout(() => setCopied(false), 2700);
   }
 
@@ -46,16 +54,14 @@ const Community = ({
   return (
     <div
       id='communtiy-card'
-      className={`flex max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden mx-auto community-item flip-card ${
-        isActive ? 'active' : null
-      }`}
+      className={`flex max-w-sm w-full bg-white shadow-md rounded-lg overflow-hidden mx-auto community-item card-container`}
     >
-      <div className='flip-card-inner'>
-        <div className='flip-card-front'>
+      <div className={`card flip-card-inner ${isActive ? 'active' : null}`}>
+        <div className='side front'>
           <div className='overflow-hidden rounded-xl relative transition ease-in-out duration-500 shadow-lg hover:shadow-2xl text-white w-full'>
             <div className='absolute inset-0 z-10 transition duration-300 ease-in-out bg-gradient-to-t from-black via-gray-900 to-transparent'></div>
             <div
-              className='relative cursor-pointer group z-10 px-10 pt-10 space-y-6'
+              className='relative group z-10 px-10 pt-10 space-y-6'
               style={{ minHeight: 520 }}
             >
               <div className='poster__info align-self-end w-full'>
@@ -69,7 +75,7 @@ const Community = ({
                       {name}
                     </h3>
                   </div>
-                  <div className='flex flex-row justify-between datos'>
+                  <div className='flex flex-row justify-between datos text-center'>
                     <div className='flex flex-col datos_col'>
                       <div className='owner'>{owner_alias}</div>
                       <div className='text-sm text-gray-400'>Owner</div>
@@ -131,7 +137,7 @@ const Community = ({
             </div>
           </div>
         </div>
-        <div className='flip-card-back'>
+        <div className='side back'>
           <div className='overflow-hidden rounded-xl relative transition ease-in-out duration-500 shadow-lg hover:shadow-2xl text-white w-full h-full'>
             <div className='absolute z-20' style={{ top: 4, right: 8 }}>
               <button
@@ -153,10 +159,10 @@ const Community = ({
               />
             </div>
 
-            <div className='relative cursor-pointer group z-10 px-10 pt-6'>
+            <div className='relative group z-10 px-10 pt-6'>
               <div className='poster__info align-self-end w-full'>
                 <div className='space-y-6 detail_info'>
-                  <div className='flex flex-row justify-between datos'>
+                  <div className='flex flex-row justify-between datos text-center'>
                     <div className='flex flex-col datos_col'>
                       <div className='text-gray-500 last-active'>
                         {price_to_join || 0}
@@ -189,7 +195,7 @@ const Community = ({
                       <div>
                         <button
                           className='bg-gray-200 text-gray-400 text-sm px-4 py-2 rounded-full'
-                          onClick={e => copyString(e)}
+                          onClick={e => copyString(e, qrString)}
                         >
                           {copied ? 'Copied!' : 'Copy'}
                         </button>
