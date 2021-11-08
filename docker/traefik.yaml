@@ -6,13 +6,13 @@ providers:
 
 entryPoints:
   web:
-    address: ":80"
+    address: ':80'
 
   websecure:
-    address: ":443"
+    address: ':443'
 
   mqttsecure:
-    address: ":8883"
+    address: ':8883'
 
 certificatesResolvers:
   myresolver:
@@ -21,5 +21,5 @@ certificatesResolvers:
       storage: /letsencrypt/acme.json
       caServer: https://acme-v02.api.letsencrypt.org/directory
       dnsChallenge:
-        provider: cloudflare
-        # provider: route53
+        # provider: cloudflare
+        provider: route53
