@@ -2,7 +2,7 @@
 # Bash Menu Script Example
 
 PS3='Please enter your choice: '
-options=("bash" "logs" "kill" "reset" "compose" "quit")
+options=("bash" "logs" "logs_proxy" "kill" "reset" "compose" "quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -13,6 +13,11 @@ do
             ;;
         "logs")
             cmd="docker-compose logs -f --tail 100"
+            echo $cmd
+            $cmd            
+            ;;
+        "logs_proxy")
+            cmd="docker logs --follow proxy"
             echo $cmd
             $cmd            
             ;;

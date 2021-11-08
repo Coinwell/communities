@@ -1,4 +1,4 @@
-version: "2"
+version: '2'
 
 services:
   reverse-proxy:
@@ -9,7 +9,7 @@ services:
     # Enables the web UI and tells Traefik to listen to docker
     # command: --configFile=/home/ec2-user/sphinx-deploy/traefik.yaml
     command:
-      - "--log.level=DEBUG"
+      - '--log.level=DEBUG'
     ports:
       # The HTTP port
       - 80:80
@@ -28,15 +28,16 @@ services:
       - AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
       - AWS_REGION=$AWS_REGION
 
-      # - CLOUDFLARE_EMAIL=$CLOUDFLARE_EMAIL
-      # - CLOUDFLARE_API_KEY=$CLOUDFLARE_API_KEY
-      - CLOUDFLARE_DNS_API_TOKEN=$CLOUDFLARE_DNS_API_TOKEN
-      - CLOUDFLARE_ZONE_API_TOKEN=$CLOUDFLARE_ZONE_API_TOKEN
+      - CLOUDFLARE_EMAIL=$CLOUDFLARE_EMAIL
+      - CLOUDFLARE_API_KEY=$CLOUDFLARE_API_KEY
+
+      # - CLOUDFLARE_DNS_API_TOKEN=$CLOUDFLARE_DNS_API_TOKEN
+      # - CLOUDFLARE_ZONE_API_TOKEN=$CLOUDFLARE_ZONE_API_TOKEN
 
       # - CF_API_EMAIL=$CF_API_EMAIL
       # - CF_API_KEY=$CF_API_KEY
-      - CF_DNS_API_TOKEN=$CF_DNS_API_TOKEN
-      - CF_ZONE_API_TOKEN=$CF_ZONE_API_TOKEN
+      # - CF_DNS_API_TOKEN=$CF_DNS_API_TOKEN
+      # - CF_ZONE_API_TOKEN=$CF_ZONE_API_TOKEN
 
     logging:
       options:
@@ -70,14 +71,14 @@ services:
     build: .
     logging:
       options:
-        max-size: "10m"
-        max-file: "3"
+        max-size: '10m'
+        max-file: '3'
 
     depends_on:
       # - auth
       - reverse-proxy
     labels:
-      - "traefik.enable=true"
+      - 'traefik.enable=true'
 
       # # web : insecure
       # - "traefik.http.routers.communities.rule=Host(`communities.getzion.com`)"
@@ -85,21 +86,21 @@ services:
       # - "traefik.http.routers.communities.entrypoints=web"
 
       # web : secure
-      - "traefik.http.routers.communities.rule=Host(`$TRIBES_HOST`)"
-      - "traefik.http.services.communities.loadbalancer.server.port=$PORT"
-      - "traefik.http.routers.communities.tls=true"
-      - "traefik.http.routers.communities.tls.certresolver=myresolver"
-      - "traefik.http.routers.communities.entrypoints=websecure"
+      - 'traefik.http.routers.communities.rule=Host(`$TRIBES_HOST`)'
+      - 'traefik.http.services.communities.loadbalancer.server.port=$PORT'
+      - 'traefik.http.routers.communities.tls=true'
+      - 'traefik.http.routers.communities.tls.certresolver=myresolver'
+      - 'traefik.http.routers.communities.entrypoints=websecure'
 
       # mqtt : in secure
-      - "traefik.tcp.routers.communities.rule=HostSNI(`$TRIBES_HOST`)"
+      - 'traefik.tcp.routers.communities.rule=HostSNI(`$TRIBES_HOST`)'
       # - "traefik.tcp.routers.communities.rule=HostSNI(`*`)"
-      - "traefik.tcp.services.communities.loadbalancer.server.port=1883"
-      - "traefik.tcp.routers.communities.tls=true"
+      - 'traefik.tcp.services.communities.loadbalancer.server.port=1883'
+      - 'traefik.tcp.routers.communities.tls=true'
       # - "traefik.tcp.routers.communities.tls=false"
-      - "traefik.tcp.routers.communities.tls.certresolver=myresolver"
-      - "traefik.tcp.routers.communities.entrypoints=mqttsecure"
-      - "traefik.tcp.routers.communities.service=communities"
+      - 'traefik.tcp.routers.communities.tls.certresolver=myresolver'
+      - 'traefik.tcp.routers.communities.entrypoints=mqttsecure'
+      - 'traefik.tcp.routers.communities.service=communities'
     restart: on-failure
     environment:
       - TRIBES_HOST=$TRIBES_HOST
