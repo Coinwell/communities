@@ -1,26 +1,26 @@
 ---
 - name: EC2 Facts
   ec2_instance_info:
-    region: "{{ aws_region }}"
-    aws_access_key: "{{ aws_access_key }}"
-    aws_secret_key: "{{ aws_secret_key }}"
+    region: '{{ aws_region }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
 
     filters:
       # "state": "running"
-      instance-state-name: "running"
-      "tag:Name": "{{config.instance_name}}"
+      instance-state-name: 'running'
+      'tag:Name': '{{config.instance_name}}'
 
   register: ec2
 - debug: var=ec2
 
 - name: Kill EC2 Instance
   ec2:
-    instance_ids: "{{ ec2.instances[0].instance_id }}"
+    instance_ids: '{{ ec2.instances[0].instance_id }}'
     # state: "{{ state }}"
-    state: "absent"
-    region: "{{ aws_region }}"
-    aws_access_key: "{{ aws_access_key }}"
-    aws_secret_key: "{{ aws_secret_key }}"
+    state: 'absent'
+    region: '{{ aws_region }}'
+    aws_access_key: '{{ aws_access_key }}'
+    aws_secret_key: '{{ aws_secret_key }}'
 
 # - name: Remove host from known_hosts
 #   known_hosts:
@@ -31,10 +31,11 @@
 - name: Retrieve the Records First
   route53:
     state: get
-    zone: "{{ config.domain }}"
-    record: "{{ config.instance_name }}"
+    zone: '{{ config.domain }}'
+    record: '{{ config.instance_name }}'
     type: A
   register: rec
+  when: config.route53
 
 - name: display the record
   debug: var=rec
@@ -42,13 +43,14 @@
 - name: Route 53 Delete Records
   route53:
     state: absent
-    zone: "{{ config.domain }}"
-    record: "{{ config.instance_name }}"
-    type: "{{ rec.set.Type }}"
-    ttl: "{{ rec.set.TTL }}"
-    value: "{{ rec.set.ResourceRecords[0].Value }}"
+    zone: '{{ config.domain }}'
+    record: '{{ config.instance_name }}'
+    type: '{{ rec.set.Type }}'
+    ttl: '{{ rec.set.TTL }}'
+    value: '{{ rec.set.ResourceRecords[0].Value }}'
     wait: yes
   register: result
+  when: config.route53
 
 - name: display results
   debug: var=result

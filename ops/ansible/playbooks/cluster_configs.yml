@@ -13,15 +13,16 @@ cluster_configs:
   #     testnet: false,
   #   }
 
+  - {
+      instance_type: 'c4.8xlarge',
+      instance_name: 'communities.getzion.com',
+      testnet: false,
+      route53: false
+    }
+
   # - {
-  #     instance_type: "c4.large",
-  #     instance_name: "communities.getzion.com",
+  #     instance_type: "t3.large",
+  #     instance_name: "a.n2n2.chat",
+  #     domain: "n2n2.chat",
   #     testnet: false,
   #   }
-
-  - {
-      instance_type: "t3.large",
-      instance_name: "a.n2n2.chat",
-      domain: "n2n2.chat",
-      testnet: false,
-    }
