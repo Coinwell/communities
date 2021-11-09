@@ -13,9 +13,9 @@ metadata:
   name: secure-communities-dashboard-ingress-https
 spec:
   entryPoints:
-    - websecure
+    - https
   routes:
-    - match: Host(`web-c.n2n2.chat`)
+    - match: Host(`b.n2n2.chat`)
       kind: Rule
       services:
         - name: communities
@@ -29,9 +29,9 @@ metadata:
   name: secure-communities-dashboard-ingress-http
 spec:
   entryPoints:
-    - web
+    - http
   routes:
-    - match: Host(`web-c.n2n2.chat`)
+    - match: Host(`b.n2n2.chat`)
       middlewares:
         - name: https-only
       kind: Rule
@@ -39,45 +39,13 @@ spec:
         - name: communities
           port: 5000
 ---
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: IngressRoute
-# metadata:
-#   name: secure-communities-mqtt-ingress-https
-# spec:
-#   entryPoints:
-#     - mqtts
-#   routes:
-#     - match: Host(`c.n2n2.chat`)
-#       kind: Rule
-#       services:
-#         - name: communities
-#           port: 1883
-#   tls:
-#     secretName: secure-communities-mqtt-cert
-# ---
-# apiVersion: traefik.containo.us/v1alpha1
-# kind: IngressRoute
-# metadata:
-#   name: secure-communities-mqtt-ingress-http
-# spec:
-#   entryPoints:
-#     - mqtt
-#   routes:
-#     - match: Host(`c.n2n2.chat`)
-#       middlewares:
-#         - name: https-only
-#       kind: Rule
-#       services:
-#         - name: communities
-#           port: 1883
-# ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRouteTCP
 metadata:
   name: secure-communities-mqtt
 spec:
   entryPoints:
-  - mqttsecure
+  - mqtt
   routes:
   - match: HostSNI(`c.n2n2.chat`)
     services:
@@ -85,7 +53,7 @@ spec:
       port: 1883
   tls:
     secretName: secure-communities-mqtt-cert
-    passthrough: true
+    passthrough: false
     options:
       name: default
 ---

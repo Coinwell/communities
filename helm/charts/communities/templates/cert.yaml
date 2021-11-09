@@ -3,13 +3,13 @@ kind: Certificate
 metadata:
   name: secure-communities-dashboard-cert
 spec:
-  commonName: web-c.n2n2.chat
-  secretName: secure-communities-dashboard-cert
+  commonName: b.n2n2.chat
   dnsNames:
-    - web-c.n2n2.chat
+    - b.n2n2.chat
   issuerRef:
-    name: letsencrypt-prod
     kind: ClusterIssuer
+    name: letsencrypt-prod
+  secretName: secure-communities-dashboard-cert
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -17,9 +17,9 @@ metadata:
   name: secure-communities-mqtt-cert
 spec:
   commonName: c.n2n2.chat
-  secretName: secure-communities-mqtt-cert
   dnsNames:
     - c.n2n2.chat
   issuerRef:
-    name: letsencrypt-prod
     kind: ClusterIssuer
+    name: letsencrypt-prod
+  secretName: secure-communities-mqtt-cert
