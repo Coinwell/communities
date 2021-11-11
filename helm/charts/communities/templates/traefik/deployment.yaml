@@ -32,7 +32,6 @@ spec:
         - --entrypoints.https.Address=:443
         - --entrypoints.traefik.Address=:8080
         - --entrypoints.mqtt.Address=:8883
-        - --providers.docker
         - --providers.kubernetescrd
         - --providers.kubernetesIngress.ingressClass=traefik-cert-manager
         - --ping=true

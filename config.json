@@ -4,10 +4,10 @@
   "host": "0.0.0.0",
   "debug": false,
   "cluster": {
-    "host": "",
-    "port": ""
+    "host": "0.0.0.0",
+    "port": "1993"
   },
-  "router": "",
+  "router": "router:9888",
   "wsPort": "1880",
   "wsPath": "/mqtt",
   "wsTLS": false,

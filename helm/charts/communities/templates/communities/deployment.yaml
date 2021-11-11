@@ -12,7 +12,7 @@ spec:
       maxSurge: 1
       maxUnavailable: 1
   revisionHistoryLimit: 5
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.communities.replicas }}
   template:
     metadata:
       labels:
@@ -22,7 +22,7 @@ spec:
         - name: regcred
       containers:
       - name: communities
-        image: "{{ .Values.image }}:{{ .Values.tag }}"
+        image: "{{ .Values.communities.image }}:{{ .Values.communities.tag }}"
         imagePullPolicy: Always
         resources:
           limits:
@@ -39,6 +39,9 @@ spec:
           protocol: TCP
         - name: mqtts
           containerPort: 8883
+          protocol: TCP
+        - name: cluster
+          containerPort: 1993
           protocol: TCP
         envFrom:
         - secretRef:

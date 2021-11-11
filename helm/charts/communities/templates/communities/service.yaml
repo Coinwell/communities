@@ -18,3 +18,7 @@ spec:
       protocol: TCP
       port: 5000
       targetPort: 5000
+    - name: cluster
+      protocol: TCP
+      port: 1993
+      targetPort: 1993
